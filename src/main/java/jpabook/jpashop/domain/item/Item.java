@@ -47,9 +47,4 @@ public abstract class Item {
         }
         this.stockQuantity += realStock;
     }
-
-
-
-
-
 }
