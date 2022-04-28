@@ -50,6 +50,9 @@ public class Order {
         delivery.setOrder(this);
     }
 
+    //생성 메서드를 사용하기 위해 강제로 객체 생성을 못하게 막음
+    protected Order() {}
+
     //==생성 메서드==//
     public static Order createOrder(Member member, Delivery delivery, OrderItem... orderItems) {
         Order order = new Order();
