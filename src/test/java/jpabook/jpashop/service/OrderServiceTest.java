@@ -49,11 +49,21 @@ public class OrderServiceTest {
         int count = 10;
         Long orderId = orderService.order(member.getId(), item.getId(), count);
 
+        System.out.println("####################################################");
+        System.out.println(item.getStockQuantity());
+        System.out.println("####################################################");
         // then
         Order getOrder = orderRepository.findOne(orderId);
 
+        System.out.println("####################################################");
+        System.out.println(item.getStockQuantity());
+        System.out.println("####################################################");
+
+        assertEquals("주문 수량만큼 재고가 줄어야 한다.", 100 - count, item.getStockQuantity());
         assertEquals("상품 주문 시 상태는 ORDER", OrderStatus.ORDER, getOrder.getStatus());
-        assertEquals("주문한 상품 종류 수가 정확해야 한다.", OrderStatus.ORDER, getOrder.getStatus());
+        assertEquals("주문한 상품 종류 수가 정확해야 한다.", 1, getOrder.getOrderItems().size());
+        assertEquals("주문 가격은 가격 * 수량이다.", 10000 * count, getOrder.getTotalPrice());
+
     }
     
     @Test
