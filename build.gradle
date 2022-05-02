@@ -19,6 +19,9 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	//화면 파일들에 대해 캐싱을 안한다.(리컴파일 해줘야함)
+	implementation 'org.springframework.boot:spring-boot-devtools'
+
 	//쿼리 파라미터 로그 남기기
 	//implementation("com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.8.0")
 	compileOnly 'org.projectlombok:lombok'
