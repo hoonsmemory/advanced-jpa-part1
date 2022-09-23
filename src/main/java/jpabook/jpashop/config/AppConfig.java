@@ -1,4 +1,4 @@
-가package jpabook.jpashop.config;
+package jpabook.jpashop.config;
 
 import com.fasterxml.jackson.datatype.hibernate5.Hibernate5Module;
 import jpabook.jpashop.domain.*;
