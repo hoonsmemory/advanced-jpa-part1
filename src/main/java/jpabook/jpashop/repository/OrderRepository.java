@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Repository
 @RequiredArgsConstructor
@@ -30,7 +31,21 @@ public class OrderRepository {
                                   .setParameter("status",orderSearch.getOrderStatus())
                                   .setParameter("name",orderSearch.getMemberName())
                                   .setMaxResults(1000) //최대 1000건
-                                  .getResultList();
+                .getResultStream().collect(Collectors.toList());
         return orderlist;
+    }
+
+    public List<Order> finAllWithMemberDelivery(OrderSearch orderSearch) {
+
+        List<Order> finAllWithMemberDelivery = em.createQuery(
+                "select o from Order o " +
+                        "join fetch o.member m " +
+                        "join fetch o.delivery d " +
+                        "where o.status = :status"
+                , Order.class
+        ).setParameter("status", orderSearch.getOrderStatus())
+                .getResultList();
+
+        return finAllWithMemberDelivery;
     }
 }
