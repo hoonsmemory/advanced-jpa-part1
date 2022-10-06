@@ -9,10 +9,10 @@ import javax.persistence.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Entity
-public class ContestHistory {
+public class ContestTeam {
 
     @Id @GeneratedValue
-    @Column(name = "Contest_History_id")
+    @Column(name = "Contest_Team_id")
     private Long id;
 
     private Integer rank;
@@ -33,11 +33,11 @@ public class ContestHistory {
         this.team = team;
     }
 
-    public static ContestHistory createContestHistory(Team team) {
-        ContestHistory contestHistory = new ContestHistory();
-        contestHistory.setTeam(team);
+    public static ContestTeam createContestTeam(Team team) {
+        ContestTeam contestTeam = new ContestTeam();
+        contestTeam.setTeam(team);
 
-        return contestHistory;
+        return contestTeam;
     }
 
     public void updateRank(Integer rank) {

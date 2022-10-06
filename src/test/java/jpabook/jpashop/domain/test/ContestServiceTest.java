@@ -18,9 +18,10 @@ class ContestServiceTest {
     @Autowired
     private EntityManager entityManager;
 
-    @Rollback(value = false)
-    @Transactional
-    @Test
+    //@Rollback(value = false)
+    //@Transactional
+    //@Test
+    //@Before
     public void setting() {
 
         Team teamA = Team.builder()
@@ -68,22 +69,27 @@ class ContestServiceTest {
         entityManager.persist(promoterB);
 
 
-        ContestHistory contestHistoryA1 = ContestHistory.createContestHistory(teamA);
-        entityManager.persist(contestHistoryA1);
+        ContestTeam contestTeamA1 = ContestTeam.createContestTeam(teamA);
+        entityManager.persist(contestTeamA1);
 
-        ContestHistory contestHistoryA2 = ContestHistory.createContestHistory(teamB);
-        entityManager.persist(contestHistoryA2);
+        ContestTeam contestTeamA2 = ContestTeam.createContestTeam(teamB);
+        entityManager.persist(contestTeamA2);
 
-        Contest contestA = Contest.createContest("contestA", promoterA, contestHistoryA1, contestHistoryA2);
+        Contest contestA = Contest.createContest("contestA", promoterA, contestTeamA1, contestTeamA2);
         entityManager.persist(contestA);
 
-        ContestHistory contestHistoryB1 = ContestHistory.createContestHistory(teamC);
-        entityManager.persist(contestHistoryB1);
-        ContestHistory contestHistoryB2 = ContestHistory.createContestHistory(teamB);
-        entityManager.persist(contestHistoryB2);
+        ContestTeam contestTeamB1 = ContestTeam.createContestTeam(teamC);
+        entityManager.persist(contestTeamB1);
+        ContestTeam contestTeamB2 = ContestTeam.createContestTeam(teamB);
+        entityManager.persist(contestTeamB2);
 
-        Contest contestB = Contest.createContest("contestB", promoterB, contestHistoryB1, contestHistoryB2);
+        Contest contestB = Contest.createContest("contestB", promoterB, contestTeamB1, contestTeamB2);
         entityManager.persist(contestB);
+    }
+
+    @Test
+    public void 조회() {
+
     }
 
 }

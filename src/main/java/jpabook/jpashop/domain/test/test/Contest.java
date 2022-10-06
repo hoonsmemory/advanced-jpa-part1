@@ -1,7 +1,6 @@
 package jpabook.jpashop.domain.test.test;
 
 import lombok.AccessLevel;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -26,7 +25,7 @@ public class Contest {
     Promoter promoter;
 
     @OneToMany(mappedBy = "contest")
-    List<ContestHistory> contestHistories = new ArrayList<>();
+    List<ContestTeam> contestTeams = new ArrayList<>();
 
     public void addPromoter(Promoter promoter) {
         this.promoter = promoter;
@@ -37,19 +36,19 @@ public class Contest {
         ContestName = contestName;
     }
 
-    public void addContestHistory(ContestHistory contestHistory) {
-        this.contestHistories.add(contestHistory);
-        contestHistory.setContest(this);
+    public void addContestTeam(ContestTeam contestTeam) {
+        this.contestTeams.add(contestTeam);
+        contestTeam.setContest(this);
     }
 
-    public static Contest createContest(String contestName, Promoter promoter, ContestHistory... contestHistories) {
+    public static Contest createContest(String contestName, Promoter promoter, ContestTeam... contestHistories) {
         Contest contest = new Contest();
         contest.setContestName(contestName);
         contest.addPromoter(promoter);
 
-        for (ContestHistory contestHistory : contestHistories) {
-            contestHistory.updateRank(1);
-            contest.addContestHistory(contestHistory);
+        for (ContestTeam contestTeam : contestHistories) {
+            contestTeam.updateRank(1);
+            contest.addContestTeam(contestTeam);
         }
 
         return contest;
