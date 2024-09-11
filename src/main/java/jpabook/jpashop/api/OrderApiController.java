@@ -6,8 +6,7 @@ import jpabook.jpashop.domain.OrderItem;
 import jpabook.jpashop.domain.OrderStatus;
 import jpabook.jpashop.repository.OrderRepository;
 import jpabook.jpashop.repository.OrderSearch;
-import jpabook.jpashop.repository.query.OrderQueryDto;
-import jpabook.jpashop.repository.query.OrderQueryRepository;
+import jpabook.jpashop.repository.query.*;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -134,7 +133,7 @@ public class OrderApiController {
         OrderSearch orderSearch = new OrderSearch();
         orderSearch.setOrderStatus(OrderStatus.ORDER);
         orderSearch.setMemberName("userA");
-        List<OrderQueryDto> orderQueryDtos = orderQueryRepository.findOrderQueryDtos(offset, limit);
+        List<OrderQueryDto> orderQueryDtos = orderQueryRepository.findOrderDtos(offset, limit);
         return orderQueryDtos;
     }
 
@@ -143,6 +142,12 @@ public class OrderApiController {
      * V6. JPA에서 DTO로 바로 조회, 플랫 데이터(1Query) (1 Query)
      * - 페이징 불가능... *
      */
+    @GetMapping("/api/v6/orders")
+    public List<OrderFlatDto> ordersV6() {
+        List<OrderFlatDto> orderDtosFlat = orderQueryRepository.findOrderDtos_flat();
+        //stream으로 발라내기..
+        return orderDtosFlat;
+    }
 
     @Data
     private class OrderDto {
