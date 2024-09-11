@@ -80,7 +80,11 @@ public class OrderSimpleApiController {
     }
     /**
      * V4. JPA에서 DTO로 바로 조회 - 쿼리1번 호출
-     * select 절에서 원하는 데이터만 선택해서 조회 */
+     * select 절에서 원하는 데이터만 선택해서 조회
+     *
+     * DTO로 직접 조회 시 영속성 컨텍스트에서 관리되지 않는다.
+     * 지정된 값만 가져오기 때문에 사용 용도가 명확해야 한다.(다른 로직에서 사용하기 어려움)
+     * */
     @GetMapping("/api/v4/simple-orders")
     public Result orderV4() {
 
