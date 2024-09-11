@@ -87,7 +87,7 @@ public class OrderApiController {
 
     /**
      * V3.1 엔티티를 조회해서 DTO로 변환 페이징 고려
-     *-ToOne 관계만 우선 모두 페치 조인으로 최적화
+     * -ToOne 관계만 우선 모두 페치 조인으로 최적화
      * - 컬렉션 관계는 hibernate.default_batch_fetch_size, @BatchSize로 최적화
      */
     @GetMapping("/api/v3_1/orders")
@@ -96,10 +96,14 @@ public class OrderApiController {
         OrderSearch orderSearch = new OrderSearch();
         orderSearch.setOrderStatus(OrderStatus.ORDER);
         orderSearch.setMemberName("userA");
-        List<OrderDto> orderDtos = orderRepository.findAllWithMemberDelivery(offset, limit)
-                .stream()
-                .map(o -> new OrderDto(o))
-                .collect(Collectors.toList());
+
+        // 1. -ToOne 관계만 우선 모두 페치 조인으로 최적화
+        List<Order> orders = orderRepository.findAllWithMemberDelivery(offset, limit);
+
+        // 2. hibernate.default_batch_fetch_size 를 사용해 최적화
+        List<OrderDto> orderDtos = orders.stream()
+                                         .map(o -> new OrderDto(o))
+                                         .collect(Collectors.toList());
 
         return orderDtos;
     }
